@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pypoetry"
+version = "0.1.0"
+description = "A sample project driven by poetry, using Cython"
+authors = ["Ivan Cenov <i_cenov@botevgrad.com>"]
+readme = "README.md"
+packages = [{include = "pypoetry", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
