@@ -5,16 +5,24 @@ description = "A sample project driven by poetry, using Cython"
 authors = ["Ivan Cenov <i_cenov@botevgrad.com>"]
 readme = "README.md"
 packages = [{include = "pypoetry", from = "src"}]
+include = ["pypoetry/*.so", "pypoetry/*.pyd", "build/*.so", "build/*.pyd"]  # Compiled extensions
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = ">=3.13"
+cython = ">=3.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.3"
+pytest = ">=8.3.0"
+pytest-cov = ">=3.0.0"
+pytest-mock = ">=3.0.0"
 
 [tool.poetry.scripts]
 pypoetry = "pypoetry.cli:main"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "setuptools", "Cython"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.build]
+generate-setup-file = false
+script = 'build.py'

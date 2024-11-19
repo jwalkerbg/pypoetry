@@ -1,6 +1,7 @@
 # src/pypoetry/cli.py
 
 import argparse
+from .cyth.hello_world import hello
 
 def main():
     parser = argparse.ArgumentParser(description="A simple CLI for pypoetry.")
@@ -17,6 +18,8 @@ def main():
 
     # Print greeting
     print(f"Hello, {args.name}!")
+
+    print(f"{hello()}")
 
 if __name__ == "__main__":
     main()
