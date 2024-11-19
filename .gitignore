@@ -1,3 +1,6 @@
 __pycache__
 build
 dist
+*.pyd
+*.html
+hello_world.c
