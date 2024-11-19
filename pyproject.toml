@@ -5,7 +5,7 @@ description = "A sample project driven by poetry, using Cython"
 authors = ["Ivan Cenov <i_cenov@botevgrad.com>"]
 readme = "README.md"
 packages = [{include = "pypoetry", from = "src"}]
-include = ["pypoetry/*.so", "pypoetry/*.pyd", "build/*.so", "build/*.pyd"]  # Compiled extensions
+include = ["src/pypoetry/cyth/*.so", "src/pypoetry/cyth/*.pyd"]  # Compiled extensions
 
 [tool.poetry.dependencies]
 python = ">=3.12"
