@@ -9,6 +9,8 @@ packages = [{include = "pypoetry", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.13"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
 
 [build-system]
 requires = ["poetry-core"]
