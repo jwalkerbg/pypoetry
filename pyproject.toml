@@ -8,8 +8,9 @@ packages = [{include = "pypoetry", from = "src"}]
 include = ["pypoetry/*.so", "pypoetry/*.pyd", "build/*.so", "build/*.pyd"]  # Compiled extensions
 
 [tool.poetry.dependencies]
-python = ">=3.13"
+python = ">=3.12"
 cython = ">=3.0"
+setuptools = ">=68.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=8.3.0"
