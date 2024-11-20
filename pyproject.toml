@@ -25,5 +25,5 @@ requires = ["poetry-core", "setuptools", "Cython"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.build]
-generate-setup-file = false
+generate-setup-file = true
 script = 'build.py'
