@@ -20,6 +20,10 @@ pytest-mock = ">=3.0.0"
 [tool.poetry.scripts]
 pypoetry = "pypoetry.cli:main"
 
+[tool.pypoetry.config]
+cython_path = "src/pypoetry/cyth"
+c_ext_path = "src/pypoetry/c_ext"
+
 [build-system]
 requires = ["poetry-core", "setuptools", "Cython"]
 build-backend = "poetry.core.masonry.api"
