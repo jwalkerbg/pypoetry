@@ -4,3 +4,4 @@ dist
 *.pyd
 *.html
 hello_world.c
+worker.c
