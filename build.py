@@ -1,11 +1,25 @@
 import os
 import shutil
 from pathlib import Path
+# Check Python version at runtime
+
+if sys.version_info >= (3, 11):
+    import tomllib as toml  # Use the built-in tomllib for Python 3.11+
+else:
+    import tomli as toml    # Use the external tomli for Python 3.7 to 3.10
 
 # Uncomment if library can still function if extensions fail to compile (e.g. slower, python fallback).
 # Don't allow failure if cibuildwheel is running.
 # allowed_to_fail = os.environ.get("CIBUILDWHEEL", "0") != "1"
 allowed_to_fail = False
+
+def read_cython_path():
+    # TODO: Add exception handling
+    # TODO: Add c_ext path return
+    # Open pyproject.toml and read the cython_path setting
+    with open("pyproject.toml", "rb") as f:
+        pyproject_data = toml.load(f)
+    return pyproject_data.get("tool", {}).get("pypoetry", {}).get("config", {}).get("cython_path", "src/pypoetry/cyth")
 
 def build_cython_extensions():
     # when using setuptools, you should import setuptools before Cython,
@@ -16,6 +30,9 @@ def build_cython_extensions():
     from Cython.Build import build_ext, cythonize  # pyright: ignore [reportMissingImports]
 
     Cython.Compiler.Options.annotate = True
+
+    cython_path = read_cython_path()
+    print(f"Using Cython path: {cython_path}")
 
     if os.name == "nt":  # Windows
         extra_compile_args = [
@@ -40,7 +57,7 @@ def build_cython_extensions():
 
     c_files = [str(x) for x in Path("pypoetry/c_src").rglob("*.c")]
     # Dynamically find all .pyx files in the cyth directory
-    pyx_files = list(Path("src/pypoetry/cyth").rglob("*.pyx"))
+    pyx_files = list(Path(cython_path).rglob("*.pyx"))
     extensions = [
         Extension(
             pyx_file.stem,  # The module name (e.g., "hello_world" from "hello_world.pyx")
@@ -70,7 +87,7 @@ def build_cython_extensions():
     for output in cmd.get_outputs():
         output = Path(output)
         print(f"Generated file: {output}")
-        src_relative_path = Path("src/pypoetry/cyth") / output.name
+        src_relative_path = Path(cython_path) / output.name
         shutil.copyfile(output, src_relative_path)
         print(f"Copied {output} to {src_relative_path}")
 
