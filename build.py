@@ -15,12 +15,15 @@ else:
 allowed_to_fail = False
 
 def read_cython_path():
-    # TODO: Add exception handling
-    # TODO: Add c_ext path return
-    # Open pyproject.toml and read the cython_path setting
-    with open("pyproject.toml", "rb") as f:
-        pyproject_data = toml.load(f)
-    return pyproject_data.get("tool", {}).get("pypoetry", {}).get("config", {}).get("cython_path", "src/pypoetry/cyth")
+    try:
+        with open("pyproject.toml", "rb") as f:
+            pyproject_data = toml.load(f)
+    except toml.TOMLDecodeError as e:
+        return {}
+    except Exception as e:
+        return {}
+
+    return pyproject_data.get("tool", {}).get("build", {}).get("config", {})
 
 def build_cython_extensions():
     # when using setuptools, you should import setuptools before Cython,
@@ -32,8 +35,10 @@ def build_cython_extensions():
 
     Cython.Compiler.Options.annotate = True
 
-    cython_path = read_cython_path()
-    print(f"Using Cython path: {cython_path}")
+    config = read_cython_path()
+    cython_path = config.get("cython_path", "cython")
+    c_ext_path = config.get("c_ext_path", "c_ext")
+    print(f"Using Cython path: {cython_path}, c_ext path: {c_ext_path}")
 
     if os.name == "nt":  # Windows
         extra_compile_args = [
