@@ -1,2 +1,2 @@
-from .cmodule import *
+from .cmodulea import *
 from .cmoduleb import *
