@@ -6,6 +6,10 @@ authors = ["Ivan Cenov <i_cenov@botevgrad.com>"]
 readme = "README.md"
 packages = [{include = "pypoetry", from = "src"}]
 include = [
+    "pyproject.toml",
+    "build.py",
+    "MANIFEST.in",
+    "README.md",
     "src/pypoetry/cyth/*.pyx",
     "src/pypoetry/cyth/*.so",
     "src/pypoetry/cyth/*.pyd",
