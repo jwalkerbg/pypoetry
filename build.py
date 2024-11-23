@@ -61,7 +61,6 @@ def build_cython_extensions():
         "src/pypoetry/c_src/",
     ]
 
-    c_files = [str(x) for x in Path("pypoetry/c_src").rglob("*.c")]
     # Dynamically find all .pyx files in the cyth directory
     pyx_files = list(Path(cython_path).rglob("*.pyx"))
     extensions = [
@@ -75,8 +74,26 @@ def build_cython_extensions():
         for pyx_file in pyx_files
     ]
 
+    # Dynamically find all .c files in the cyth directory
+    c_files = list(Path(c_ext_path).rglob("*.c"))
+    c_extensions = [
+        Extension(
+            c_file.stem,
+            [str(c_file)],
+            include_dirs=include_dirs,
+            extra_compile_args=extra_compile_args,
+            language="c"
+        )
+        for c_file in c_files
+    ]
+
+    print(f"c_extensions: {c_extensions}")
+
+    extensions.extend(c_extensions)
+
     # Log discovered extensions
     print(f"Discovered .pyx files: {pyx_files}")
+    print(f"Discovered .c files: {c_files}")
     print(f"Creating Extensions: {[ext.name for ext in extensions]}")
 
     include_dirs = set()
@@ -90,10 +107,14 @@ def build_cython_extensions():
     cmd.ensure_finalized()
     cmd.run()
 
-    for output in cmd.get_outputs():
+    for output, src_path in zip(cmd.get_outputs(),cmd.get_source_files()):
         output = Path(output)
+
+        print(f"src_path: {src_path}")
+        src_path = Path(src_path).parent
+
         print(f"Generated file: {output}")
-        src_relative_path = Path(cython_path) / output.name
+        src_relative_path = Path(src_path) / output.name
         shutil.copyfile(output, src_relative_path)
         print(f"Copied {output} to {src_relative_path}")
 
