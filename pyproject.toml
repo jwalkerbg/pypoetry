@@ -10,15 +10,9 @@ include = [
     "build.py",
     "MANIFEST.in",
     "README.md",
-    "src/pypoetry/cyth/*.pyx",
-    "src/pypoetry/cyth/*.so",
-    "src/pypoetry/cyth/*.pyd",
-    "src/pypoetry/c_ext/cmodulea/*.c",
-    "src/pypoetry/c_ext/cmodulea/*.so",
-    "src/pypoetry/c_ext/cmodulea/*.pyd",
-    "src/pypoetry/c_ext/cmoduleb/*.c",
-    "src/pypoetry/c_ext/cmoduleb/*.so",
-    "src/pypoetry/c_ext/cmoduleb/*.pyd"
+    "src/pypoetry/cyth/*",
+    "src/pypoetry/c_ext/cmodulea/*",
+    "src/pypoetry/c_ext/cmoduleb/*"
 ]  # Compiled extensions
 
 [tool.poetry.dependencies]
