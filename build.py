@@ -101,7 +101,9 @@ def build_cython_extensions():
         include_dirs.update(extension.include_dirs)
     include_dirs = list(include_dirs)
 
+    print("Cythonizing.....")
     ext_modules = cythonize(extensions, include_path=include_dirs, language_level=3, annotate=True)
+    print("End of Cythonizing")
     dist = Distribution({"ext_modules": ext_modules})
     cmd = build_ext(dist)
     cmd.ensure_finalized()
