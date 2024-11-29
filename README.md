@@ -46,13 +46,13 @@ Installing poetry (https://python-poetry.org/docs/)
 pipx install poetry
 ```
 
-## Intsalling and building
+## Installing and building
 
 ```bash
 poetry install
 ```
 
-This installs dependencies and build Cython and C extensions. After installing you should be able to start the module with
+This installs dependencies and builds Cython and C extensions. After installing you should be able to start the module with
 
 ```
 pypoetry
